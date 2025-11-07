@@ -1,40 +1,64 @@
 import express from 'express';
-import api from './api/index.js';
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
 
 // mock-data
 
+const cats = [
+  {
+    cat_id: 2,
+    name: 'Kisu',
+    birthdate: '2023-10-08',
+    weight: 6,
+    owner: 'Hessu',
+    image: 'https://loremflickr.com/320/240/cat',
+  },
+  {
+    cat_id: 3,
+    name: 'Misu',
+    birthdate: '2021-11-18',
+    weight: 7,
+    owner: 'Hessu',
+    image: 'https://loremflickr.com/320/240/cat3',
+  },
+];
 
 
-// Web sivusto tarjoillaan public-kansiosta
-//app.use('/sivusto', express.static('public')); // aliosoite /sivusto
-// tai palvelimen juuri /
 app.use(express.static('public'));
 
-// parsii json-datan http-pyynnöstä
 app.use(express.json());
 
-app.use(express.urlencoded({extended: true}));
 
-app.use('/api/v1', api);
+app.get('/api/v1', (req, res) => {
+  res.send('Welcome to my REST API!');
+});
 
-app.use('/example/middleware', (req, res, next) => {
-  console.log("Moro olen täällä");
-  next();
-},
-(req, res, next) => {
-  console.log("Olen middleware ja käsittelen dataa");
-  next();
-},
-(req, res, next) => {
-  console.log("Moikka, pääsin perille asti");
-  res.send('Tiedosto upattu ja käsitelty');
+app.get('/api/test', (request, response) => {
+  const responseData = {vastaus: 'toimii myös näin'};
+  response.send(responseData);
+});
+
+
+app.get('/api/v1/cats', (req, res) => {
+  res.json(cats);
+});
+
+app.get('/api/v1/cats/:id', (req, res) => {
+
+  const cat = cats.find(cat => cat.cat_id === parseInt(req.params.id));
+  if (cat) {
+    res.json(cat);
+  } else {
+    res.status(404).json({message: 'cat not found'});
+  }
+});
+
+app.post('/api/v1/cats', (req, res) => {
+  console.log(req.body);
+  res.sendStatus(201);
 });
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-export default app;
