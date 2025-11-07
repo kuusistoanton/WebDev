@@ -33,11 +33,11 @@ const postUser = (req, res) => {
 };
 
 const putUser = (req, res) => {
-
+    res.json({message: 'User item updated.'})
 };
 
-const deleteUser = (res, req) => {
-
-}
+const deleteUser = (req, res) => {
+    res.json({message: 'User item deleted.'})
+};
 
 export {getUser, userById, postUser, putUser, deleteUser}

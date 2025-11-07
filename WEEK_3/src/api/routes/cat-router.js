@@ -14,7 +14,7 @@ import {
 const catRouter = express.Router();
 
 
-catRouter.route('/').get(getCat).post(upload.single('file'), postCat);
+catRouter.route('/').get(getCat).post(postCat);
 
 catRouter.route('/:id').get(catById).put(putCat).delete(deleteCat);
 

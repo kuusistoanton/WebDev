@@ -22,8 +22,6 @@ const catById = (req, res) => {
 };
 
 const postCat = (req, res) => {
-    req.body.filename = req.file.filename;
-
     const cat = addCat(req.body);
 
     if (cat.cat_id){
@@ -35,11 +33,11 @@ const postCat = (req, res) => {
 };
 
 const putCat = (req, res) => {
-
+    res.json({message: 'Cat item updated.'})
 };
 
-const deleteCat = (res, req) => {
-
+const deleteCat = (req, res) => {
+    res.json({message: 'Cat item deleted.'})
 }
 
 export {getCat, catById, postCat, putCat, deleteCat}
