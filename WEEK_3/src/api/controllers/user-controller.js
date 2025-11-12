@@ -6,8 +6,8 @@ import {
     removeUser
 
     } from '../models/user-model.js';
-const getUser = (req, res) => {
-    res.json(listAllUsers());
+const getUser = async (req, res) => {
+    res.json(await listAllUsers());
 };
 
 const userById = (req, res) => {

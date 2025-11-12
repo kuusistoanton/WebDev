@@ -6,12 +6,12 @@ import {
     removeCat
 
     } from '../models/cat-model.js';
-const getCat = (req, res) => {
-    res.json(listAllCats());
+const getCat = async (req, res) => {
+    res.json(await listAllCats());
 };
 
-const catById = (req, res) => {
-    const cat = getCatById(req.params.id);
+const catById = async (req, res) => {
+    const cat = await getCatById(req.params.id);
 
     if (cat){
         res.json(cat);
