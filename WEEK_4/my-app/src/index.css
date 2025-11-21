@@ -23,7 +23,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 20px;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -33,6 +33,21 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+.container {
+  display: flex;
+}
+.card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+dialog {
+  flex-direction: column;
 }
 
 button {
