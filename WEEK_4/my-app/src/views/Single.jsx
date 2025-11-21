@@ -11,6 +11,9 @@ const Single = () => {
       <h2>Single item</h2>
       {item && (
         <div>
+            
+            <img src={item.thumbnail} alt={item.title} />
+        
           <div>{item.title}</div>
           <div>{item.description}</div>
           <div>{item.username}</div>

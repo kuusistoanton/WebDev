@@ -6,6 +6,9 @@ const SingleView = (props) => {
         <>
             {item && (
                 <dialog open>
+                    <td>
+                        <img src={item.thumbnail} alt={item.title} />
+                    </td>
                     <div>{item.title}</div>
                     <div>{item.description}</div>
                     <div>{item.username}</div>
