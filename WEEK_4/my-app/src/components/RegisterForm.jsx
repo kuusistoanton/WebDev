@@ -1,5 +1,5 @@
 import useForm from '../hooks/formHooks';
-import {useUser} from '../hooks/apiHooks';
+import {useUserContext} from '../hooks/contextHooks';
 
 const RegisterForm = () => {
   const initValues = {
@@ -8,12 +8,11 @@ const RegisterForm = () => {
     password: '',
   };
 
-  const {postUser} = useUser();
+  const {handleRegister} = useUserContext();
 
   const doRegister = async () => {
     try {
-      const result = await postUser(inputs);
-      console.log('register result', result);
+      await handleRegister(inputs);
     } catch (err) {
       console.log('Register error', err);
     }
