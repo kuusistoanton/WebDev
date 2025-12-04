@@ -10,33 +10,33 @@ const Layout = () => {
   }, []);
 
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
+      <nav className="border-b border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+        <ul className="flex list-none m-0 p-5">
+          <li className="mr-8 float-left">
+            <Link to="/" className="font-semibold text-blue-500 hover:text-blue-400 no-underline">Home</Link>
           </li>
           {user && (
             <>
-              <li>
-                <Link to="/profile">Profile</Link>
+              <li className="mr-8 float-left">
+                <Link to="/profile" className="font-semibold text-blue-500 hover:text-blue-400 no-underline">Profile</Link>
               </li>
-              <li>
-                <Link to="/upload">Upload</Link>
+              <li className="mr-8 float-left">
+                <Link to="/upload" className="font-semibold text-blue-500 hover:text-blue-400 no-underline">Upload</Link>
               </li>
-              <li>
-                <Link to="/logout">Logout</Link>
+              <li className="mr-8 float-left">
+                <Link to="/logout" className="font-semibold text-blue-500 hover:text-blue-400 no-underline">Logout</Link>
               </li>
             </>
           )}
           {!user && (
-            <li>
-              <Link to="/login">Login</Link>
+            <li className="mr-8 float-left">
+              <Link to="/login" className="font-semibold text-blue-500 hover:text-blue-400 no-underline">Login</Link>
             </li>
           )}
         </ul>
       </nav>
-      <main>
+      <main className="p-5">
         <Outlet />
       </main>
     </div>

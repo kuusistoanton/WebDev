@@ -49,7 +49,36 @@ const useMedia = () => {
 		return result;
 	};
 
-	return {mediaArray, postMedia};
+	const deleteMedia = async (mediaId, token) => {
+		const fetchOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		};
+		const result = await fetchData(MEDIA_API + '/' + mediaId, fetchOptions);
+		return result;
+	};
+
+	const modifyMedia = async (mediaId, inputs, token) => {
+		const mediaPayload = {
+			title: inputs.title,
+			description: inputs.description,
+		};
+		const fetchOptions = {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify(mediaPayload),
+		};
+		const result = await fetchData(MEDIA_API + '/' + mediaId, fetchOptions);
+		return result;
+	};
+
+	return {mediaArray, postMedia, deleteMedia, modifyMedia};
 };
 
 const useAuthentication = () => {
@@ -117,4 +146,64 @@ const useFile = () => {
 	return {postFile};
 };
 
-export {useMedia, useAuthentication, useUser, useFile};
+const useLike = () => {
+	const LIKES_API = import.meta.env.VITE_MEDIA_API + '/likes';
+
+	const getLikeCountByMediaId = async (mediaId) => {
+		const fetchOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		const result = await fetchData(LIKES_API + '/count/' + mediaId, fetchOptions);
+		return result;
+	};
+
+	const getLikeByUser = async (mediaId, token) => {
+		if (!token) throw new Error('No token provided');
+		const fetchOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		};
+		const result = await fetchData(LIKES_API + '/bymedia/user/' + mediaId, fetchOptions);
+		return result;
+	};
+
+	const postLike = async (mediaId, token) => {
+		if (!token) throw new Error('No token provided');
+		const payload = {
+			media_id: mediaId,
+		};
+		const fetchOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify(payload),
+		};
+		const result = await fetchData(LIKES_API, fetchOptions);
+		return result;
+	};
+
+	const deleteLike = async (likeId, token) => {
+		if (!token) throw new Error('No token provided');
+		const fetchOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		};
+		const result = await fetchData(LIKES_API + '/' + likeId, fetchOptions);
+		return result;
+	};
+
+	return {getLikeCountByMediaId, getLikeByUser, postLike, deleteLike};
+};
+
+export {useMedia, useAuthentication, useUser, useFile, useLike};
